@@ -1,0 +1,32 @@
+<div class="container p-4">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-7  col-sm-12 mx-auto" style="height: 100px">
+            <p>{{> _validation}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-7  col-sm-12 mx-auto border my-3 p-4">
+            <p class="">
+            <h4 class="text-center">E-posta onay kodu</h4>
+            <p class="text-center">
+                E-posta hesabını gir,onay kodun hesabına gelsin.
+            </p>
+
+            <p>
+            <form action="/auth/check_email_send_code" method="post">
+                <input type="email" name="email" class="form-control" required placeholder="E-posta adresini gir">
+                <button class="btn btn-block btn-outline-primary rounded-pill my-4">Gönder</button>
+            </form>
+
+            </p>
+
+
+            </p>
+
+
+        </div>
+    </div>
+
+</div>

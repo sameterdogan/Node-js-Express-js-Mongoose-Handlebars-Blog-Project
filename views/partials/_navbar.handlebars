@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+    <a class="navbar-brand" href="/"><img class="logo" src="/assets/image/icons8_blogger_64px.png" alt="fotoğraf görüntülenemiyor."></a>
+
+        <button class="navbar-toggler ml-auto mr-2 border-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto p-3">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Ana sayfa <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">iletişim</a>
+            </li>
+
+
+            {{#if loginUser}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/blogs/add">yazı ekle</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/logout">Çıkış</a>
+                </li>
+
+            {{else}}
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/auth/login">Giriş yap</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/register">Kayıt ol</a>
+                </li>
+            {{/if}}
+
+
+        </ul>
+
+      </div>
+
+            {{#if loginUser}}
+                <a id="navbarProfileImg" href="/users/{{loginUser.slugName}}/profile"><img class=" profileImg rounded-circle border" src="/assets/image/profileImage/{{loginUser.profileImg}}"  alt=""> </a>
+            {{/if}}
+
+
+
+    </div>
+</nav>

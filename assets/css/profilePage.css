@@ -1,0 +1,24 @@
+#profilePageUserName{
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.25;
+}
+.profilePageButton{
+    border-bottom: solid transparent 2px ;
+    border-radius: 0;
+}
+
+.profilePageButton:first-child{
+    border-bottom:solid #333333 2px;
+}
+.social{
+    color: #000000;
+
+}
+.social:hover{
+    color: #000000;
+}
+
+
+
+

@@ -1,0 +1,46 @@
+.trendNumber{
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 36px;
+    color: rgba(230, 230, 230, 1);
+}
+.trendUserName{
+    margin-left:.5rem ;
+    font-weight:500 ;
+    color: rgba(26, 137, 23, 1);
+}
+.trendUserName:hover{
+    color: rgba(26, 137, 23, 1);
+}
+.trendTitle{
+    font-weight: 700;
+    color: rgba(41, 41, 41, 1);
+    letter-spacing: normal;
+    line-height: 1.2rem;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.trendTitle:hover{
+    color: rgba(41, 41, 41, 1);
+}
+.trendInformetion{
+    color:  rgba(117, 117, 117, 1);
+    font-size: .9rem;
+}
+#savedBlogs{
+    padding: 2rem !important;
+    position: sticky;
+    top: 50px;
+    max-height: 400px;
+    background-color: #fafafa;
+    margin-top: 15px;
+    margin-left: 100px;
+
+
+}
+
+@media (max-width: 1025px) {
+    #savedBlogs{
+        display: none;
+    }
+}
+

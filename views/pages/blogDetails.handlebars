@@ -1,0 +1,364 @@
+<div class="container-fluid">
+
+    <div class="row my-3 p-3">
+        <div id="blog" class="col-xl-7 col-lg-10 mx-auto my-5">
+            <h1 class="detailsBlogTitle mb-3">{{blog.blogTitle}}</h1>
+            <!-- Author -->
+            <p class="mb-3">
+
+                <a class="detailsBlogUser" href="/assets/users/{{blog.user.slugName}}/profile">
+                    <img src="/assets/image/profileImage/{{blog.user.profileImg}}" class="rounded-circle profileImg"
+                         alt="Fotoğraf görüntülenemiyor.">
+                    {{blog.user.name}} -</a>
+                <span class="detailsBlogInformetion"> {{blog.parseDate}} - {{blog.readingTime}} dakika okuma</span>
+
+            </p>
+
+            <div class="text-center my-5">
+                <img class="img-fluid img-responsive rounded" style="max-height:450px"
+                     src="/assets/image/blogImage/{{blog.blogImage}}" alt="fotoğraf gürntülenemiyor">
+            </div>
+
+
+            <div class="detailsBlogContent" id="blogContent ">
+                {{{blog.blogContent}}}
+
+            </div>
+            <p class="text-right">
+                <button id="blogLikeOrUndoLike" data-toggle="popover"
+                        class="btn btn-sm btn-ligth p-0 text-dark shadow-none fas fa-heart fa-2x"></button>
+                <span class="" id="blogLikeCount">{{blog.likeCount}}</span>
+                <button id="commentsButton"
+                        class="btn btn-sm btn-ligth p-2 shadow-none far fa-comment-alt fa-2x"></button>
+                <span id="commentCount">{{blog.commentCount}}</span>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="commentsArea" class="commentsArea p-3 ">
+
+    <h3 class=" my-3">Yorumlar
+        <button id="commentsCloseButton" class="btn btn-dark float-right">&times;</button>
+    </h3>
+
+    {{#if loginUser}}
+        <img class="img-fluid img-responsive profileImg rounded-circle"
+             src="/assets/image/profileImage/{{loginUser.profileImg}}" alt="">
+        <span> <a href="#">{{loginUser.name}}</a>   </span>
+    {{else}}
+        <img class="img-fluid img-responsive rounded-circle profileImg" src="/assets/image/profileImage/default.png"
+             alt="">
+        <span> <a href="/auth/register">Yorum yapmak için kayıt olmanız gerekir.</a>   </span>
+    {{/if}}
+    <div class="text-right">
+        <textarea id="commentsİnput" class="commentsİnput" placeholder="Yazı hakkındaki düşüncelerin neler ?" name=""
+                  cols="30" rows="10"></textarea>
+        <p class="my-2" id="commentsButtons">
+            <button id="commentSend" style="display: none" class=" btn btn-sm btn-outline-dark"> Gönder</button>
+        </p>
+    </div>
+    <div class="text-right">
+        <select name="sort" id="sortBySelect">
+            <option value="mostCreatedAt">En yeni yorumlar</option>
+            <option value="mostLike">En çok beğeni alan yorumlar</option>
+        </select>
+    </div>
+
+    <div id="comments" class=" my-2 p-3 ">
+
+
+    </div>
+
+    <div id="showMoreButtonWrap" class="col-12 text-center my-5">
+        <button class="btn btn-light" id="showMoreButton">Daha fazla yükle</button>
+    </div>
+
+    <!-- /.row -->
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/tr.min.js"></script>
+<script>
+    const loginUserId = '{{loginUser._id}}'
+
+    function errorHandling(err) {
+        console.log(err.status)
+        switch (err.status) {
+            case 403:
+                window.location = '/403'
+                break
+            case 404:
+                window.location = '*'
+                break
+            case 500:
+                window.location = '/500'
+        }
+    }
+
+    function loginUserLikeTheBlogControl() {
+        const blogLikes = '{{blog.likes}}'
+        const blogLikesArray = blogLikes.split(',')
+        blogLikesArray.forEach(like => {
+            if (like && like == loginUserId) {
+                console.log('geldi')
+                document.querySelector('#blogLikeOrUndoLike').classList.replace('text-dark', 'text-danger')
+            }
+        })
+    }
+
+    function isOwnerTheComment(commentUserId, loginUserId, commentId) {
+        if (commentUserId == loginUserId) {
+            return `<button  class='commentDelete shadow-none btn btn-sm btn-ligth float-right' data-commentId='${commentId}'>Sil</button>`
+        } else {
+            return ''
+        }
+    }
+
+    function showAddedComment(comment) {
+        const userName = "{{loginUser.name}}"
+        const userSlugName = "{{loginUser.slugName}}"
+        const userProfilieImage = "{{loginUser.profileImg}}"
+        const loginUserId = '{{loginUser._id}}'
+
+        $('#comments').prepend(
+            `
+      <div class="row my-2 comment" >
+            <div class="col-xl-1  col-2  pl-0 ">
+                  <img src="/assets/image/profileImage/${userProfilieImage}" class="rounded-circle profileImg" alt="">
+            </div>
+            <div class="col-xl-11 col-10 pr-0 commentContent   ">
+                <p class="m-0 clearfix" id="commentAuth">
+                      <a href="/users/${userSlugName}/profile" target="_blank">${userName}</a>   <span class=" text-small">${moment(comment.createdAt).fromNow()}</span>
+                      ${isOwnerTheComment(comment.user, loginUserId, comment._id)}
+                  </p>
+                <div class="row" >
+                  <div class="col-10">
+                      <p> ${comment.content}</p>
+                  </div>
+
+                  <div class="col-2 p-0">
+                       <p class="text-left m-0">
+                             <button data-commentId="${comment._id}" data-toggle="popover" class="btn btn-ligth shadow-none fas fa-heart ${comment.likes.indexOf(loginUserId) == -1 ? 'text-dark' : 'text-danger'}  commentLikeOrUndoLikeButton p-0"> </button>
+                             <span class="commentLikeCount" >${comment.likeCount} </span>
+                       </p>
+                  </div>
+                </div>
+            </div>
+    </div>
+            `,
+        )
+        $('#notCommentsFound').remove()
+
+    }
+
+    function showComments(comments, isSort) {
+        if (isSort == true) {
+            $('#comments').text('')
+        }
+        if (comments.length > 0) {
+            const loginUserId = '{{loginUser._id}}'
+            $(comments).each((index, comment) => {
+
+                $('#comments').append(
+                    `
+
+        <div class="row my-2 comment " >
+            <div class="col-xl-1  col-2  pl-0 ">
+                  <img src="/assets/image/profileImage/${comment.user.profileImg}" class="rounded-circle profileImg"  alt="">
+            </div>
+            <div class="col-xl-11 col-10 pr-0    commentContent ">
+                  <p class="m-0 clearfix" id="commentAuth">
+                           <a href="/users/${comment.user.slugName}/profile" target="_blank">${comment.user.name}</a> <span class="text-small">${moment(comment.createdAt).fromNow()}</span>
+                         ${isOwnerTheComment(comment.user._id, loginUserId, comment._id)}
+                  </p>
+
+                 <div class="row" >
+                          <div class="col-10">
+                                 <p> ${comment.content}</p>
+                          </div>
+
+                          <div class="col-2 p-0">
+                                 <p class="text-left m-0">
+                                      <button data-commentId="${comment._id}" data-toggle="popover"    class="btn btn-ligth shadow-none fas fa-heart ${comment.likes.indexOf(loginUserId) == -1 ? 'text-dark' : 'text-danger'}  commentLikeOrUndoLikeButton p-0"> </button>
+                                      <span class="commentLikeCount" ">${comment.likeCount} </span>
+                                 </p>
+                          </div>
+                  </div>
+             </div>
+        </div>
+            `,
+                )
+            })
+        } else {
+            $('#comments').append(`
+             <h4 id='notCommentsFound' class='mx-auto'> Bu yazıda yorum bulunamadı.</h4> `,
+            )
+        }
+
+    }
+
+    function getComments(startIndex = 0, sortBy = 'mostCreatedAt', isSort = false) {
+        const blogId = '{{blog._id}}'
+        $.ajax({
+            url: `/api/blogs/${blogId}/comments?startIndex=${startIndex}&limit=10&sortBy=${sortBy}`,
+            type: 'Get',
+            success: function(res) {
+                const comments = res.data.comments
+                console.log(res)
+                showComments(comments, isSort)
+                isNextCommentPage(res)
+            },
+            error: function(err) {
+                errorHandling(err)
+            },
+        })
+
+    }
+
+    function isNextCommentPage(res) {
+        res.data.isEndIndex === false ? $('#showMoreButtonWrap').show() : $('#showMoreButtonWrap').hide()
+    }
+
+    function showLoginPopover(target) {
+        $(target).popover({
+            container: 'body',
+            trigger: 'manual',
+            title: 'Giriş Yapmalısın',
+            placement: 'top',
+            html: true,
+            content: `Önce giriş yapmalısın. <a href="/auth/login">Giriş Yap</a> `,
+        })
+        $(target).popover('show')
+    }
+
+
+    $('#sortBySelect').on('change', function() {
+        const sortBy = $(this).val()
+        getComments(0, sortBy, true)
+    })
+
+    $('#showMoreButton').click(function(e) {
+        const sortBy = $('#sortBySelect').val()
+        const startIndex = $('#comments .comment').length
+        console.log(startIndex)
+        getComments(startIndex, sortBy, false)
+    })
+
+    $('#commentSend').on('click', function(e) {
+        const blogId = '{{blog._id}}'
+        const content = $('#commentsİnput').val()
+        if (content.length > 0) {
+            $.post({
+                url: `/api/blogs/${blogId}/comments`,
+                dataType: 'json',
+                data: { content },
+                success: function(res) {
+                    console.log(res)
+                    showAddedComment(res.data.comment)
+                    $('#commentsİnput').val('')
+                },
+                error: function(err) {
+                    showLoginPopover(e.target)
+                },
+            })
+        }
+    })
+
+    $('#comments').on('click', '.commentLikeOrUndoLikeButton', function(e) {
+
+        const blogId = '{{blog._id}}'
+
+        const commentId = $(e.target).attr('data-commentId')
+
+        $.ajax({
+            url: `/api/blogs/${blogId}/comments/${commentId}/likeOrUndoLike`,
+            type: 'get',
+            success: function(res) {
+                console.log(res)
+                $(e.target).removeClass('text-dark').addClass(res.data.color)
+                $(e.target).next().text(res.data.comment.likeCount)
+            },
+            error: function(err) {
+                console.log(err)
+                if (err.status == 401) {
+                    showLoginPopover(e.target)
+                } else {
+                    errorHandling(err)
+                }
+
+            },
+        })
+
+    })
+
+    $('#comments').on('click', '.commentDelete', function(e) {
+        const blogId = '{{blog._id}}'
+        const commentId = $(e.target).attr('data-commentId')
+        $.ajax({
+            url: `/api/blogs/${blogId}/comments/${commentId}`,
+            type: 'delete',
+            success: function(res) {
+                $(e.target).parents('.row').remove()
+            },
+            error: function(err) {
+                if (err.status == 401) {
+                    showLoginPopover(e.target)
+                } else {
+                    errorHandling(err)
+                }
+            },
+        })
+    })
+
+    $('#blogLikeOrUndoLike').click(function(e) {
+
+        $.get({
+            url: `/api/blogs/{{{blog._id}}}/likeOrUndoLike`,
+            success: function(res) {
+                $(e.target).removeClass('text-dark').addClass(res.data.color)
+
+                $(e.target).next().text(res.data.blog.likeCount)
+            },
+            error: function(err) {
+                if (err.status == 401) {
+                    showLoginPopover(e.target)
+                } else {
+                    errorHandling(err)
+                }
+            },
+        })
+
+
+    })
+
+
+    //textarea style işlemleri
+    $('#commentsİnput').click(function() {
+        $('#commentSend').fadeIn('slow')
+        $(this).animate({ height: '100px' })
+    })
+    $('#commentsButton').click(function() {
+
+        $('#commentsArea').fadeIn('slow')
+        $('body').css('background-color', '#EBEBEB')
+
+
+    })
+    $('#commentsCloseButton').on('click', function() {
+        $('#commentsArea').fadeOut('slow')
+        $('body').css('background-color', '#ffffff')
+    })
+
+    loginUserLikeTheBlogControl()
+    getComments()
+
+
+    $(document).on('click', ':not(.popover)', function() {
+        $('.popover').popover('hide')
+    })
+</script>
+

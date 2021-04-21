@@ -1,0 +1,152 @@
+<div class="container my-5">
+
+    <div id="message">
+
+    </div>
+    <h3>Bilgiler</h3>
+
+    <form id="editForm" class="form-horizontal">
+        <div class="row ">
+            <div class="col-md-3 my-3">
+                <div class="text-center">
+                    <img src="/assets/image/profileImage/{{user.profileImg}}" id="profileImage"
+                         class="img-fluid img-responsive rounded-circle bigProfileImg" alt="avatar">
+                    <input type="file" name="profileImg" class="my-2">
+                </div>
+            </div>
+
+            <div class="col-md-9 my-3">
+                <div class="w-75 mx-auto">
+                    <div class="form-group">
+                        <label class=" control-label">İsim</label>
+                        <div class="">
+                            <input class="form-control" name="name" placeholder="İsmini ve soyismini gir." type="text"
+                                   value="{{user.name}}">
+                            <small>İsim - Soyisim alanı en az 5 en fazla 25 karakter olmalı.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">İş yeri</label>
+                        <div class="">
+                            <input class="form-control" name="company" placeholder="Çalıştığın kurumun adını gir."
+                                   type="text" value="{{user.company}}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label">Web site</label>
+                        <div class="">
+                            <input class="form-control" name="webSite" placeholder="Web site adresini gir." type="text"
+                                   value="{{user.webSite}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label">İnstagram</label>
+                        <div class="">
+                            <input class="form-control" name="instagram" type="text"
+                                   placeholder="İnstagram adresini gir." value="{{user.instagram}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label">LinkedIn</label>
+                        <div class="">
+                            <input class="form-control" name="linkedIn" type="text" placeholder="LinkedIn adresini gir."
+                                   value="{{user.linkedIn}}">
+                        </div>
+                    </div>
+
+                    <button id="editProfileButton" type="submit" class="btn button">Güncelle</button>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </form>
+</div>
+</div>
+
+
+<script>
+    const userId = "{{user._id}}"
+
+    function showMessage(message, color) {
+        $('#message').html('')
+        $('#message').html(`
+             <div class='alert alert-${color} alert-dismissible fade show my-3' role='alert'>
+                ${message}
+               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                 <span aria-hidden='true'>&times;</span>
+               </button>
+             </div>
+        `)
+        $('html, body').animate({ scrollTop: 0 }, 'slow')
+    }
+
+    function formValidation(formData) {
+
+        let errors = ''
+        //  let urlRegExp=new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
+        /*   if(formData.get("webSite")!="" && !urlRegExp.test(formData.get("webSite")))
+               errors+="web site alanı URl formatında  olmalı.<br>";
+           if(formData.get("instagram")!=""&& !urlRegExp.test(formData.get("instagram")))
+               errors+="İnstagram alanı URl formatıbda olamlı. <br>";
+           if(formData.get("linkedIn")!=""&& !urlRegExp.test(formData.get("linkedIn")))
+               errors+="LinkedIn alanı URL formatında olmalı.<br>"*/
+        console.log('asdasda')
+        return errors
+
+
+    }
+
+    $(document).on('submit', '#editForm', function(e) {
+        e.preventDefault()
+        let formData = new FormData(this)
+        const error = formValidation(formData)
+        if (error.length > 0) {
+            showMessage(error, 'danger')
+        } else {
+            $.ajax({
+                url: `/api/users/${userId}/editProfile`,
+                type: 'put',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(res) {
+                    showMessage(res.message, 'success')
+                },
+                error: function(err) {
+                    console.log(err)
+                    showMessage(err.responseJSON.error, 'danger')
+                },
+            })
+        }
+
+    })
+
+    $('input[type=\'file\']').change(function(e) {
+        let extension = this.value.substr(this.value.lastIndexOf('.') + 1)
+        console.log(extension + ' extension')
+        let selectedFileName = this.value.substr(this.value.lastIndexOf('//') + 1)
+        console.log(selectedFileName)
+        if (!(extension == 'jpeg' || extension == 'jpg' || extension == 'png' || extension == 'PNG' || extension == 'gif' || this.value == '')) {
+            showMessage('Resim uzantısı jpg,png,jpeg veya gif olmalıdır.', 'danger')
+            $('#editProfileButton').prop('disabled', true)
+        } else {
+
+            var input = this
+            var fReader = new FileReader()
+            fReader.readAsDataURL(input.files[0])
+            fReader.onloadend = function(event) {
+                var img = $('#profileImage')
+                $(img).attr('src', event.target.result)
+            }
+            $('#editProfileButton').prop('disabled', false)
+
+        }
+    })
+
+</script>

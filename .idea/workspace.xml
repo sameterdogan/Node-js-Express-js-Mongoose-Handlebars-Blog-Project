@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f018354a-6322-4aa0-b4ef-b28252cd7d9a" name="Default Changelist" comment="updated" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/sameterdogan/Node-js-Express-js-Mongoose-Handlebarsjs-Blog-Project" />
+      </set>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/routes/pageRoutes/mainRoutes.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/helpers/queryMiddleware/queryMiddlewareHelper.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/routes/apiRoutes/blog.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/routes/pageRoutes/admin.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/routes/apiRoutes/comments.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/middlewares/query/blogsQueryMiddleware.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/middlewares/query/userBlogsAndSavedBlogsQueryMiddleware.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/pages/editProfile.handlebars" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/pages/profile.handlebars" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/views/partials/_flash.handlebars" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/views/layouts/mainLayout.handlebars" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/models/blog.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/middlewares/libraryMiddlewares/multer/blogImageMulter.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/models/comment.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/routes/pageRoutes/blog.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/pages/index.handlebars" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/views/partials/_footer.handlebars" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tests/integration-tests/auth.test.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/pages/addBlog.handlebars" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/middlewares/libraryMiddlewares/flash/flashMidd.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/pages/blogDetails.handlebars" root0="SKIP_INSPECTION" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/tests/integration-tests/blog.test.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/controllers/blog.js" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="ProjectId" id="1mU54x6u0RWvBBlzuF6iwq5XPA4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.15.5" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.14.34" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\dell\WebstormProjects\blog\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\WebstormProjects\blog\assets\image\blogImage" />
+      <recent name="C:\Users\dell\WebstormProjects\blog\routers\apiRouter" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\WebstormProjects\blog\tests\integration-tests" />
+      <recent name="C:\Users\dell\WebstormProjects\blog\helpers\database" />
+      <recent name="C:\Users\dell\WebstormProjects\blog\tests" />
+      <recent name="C:\Users\dell\WebstormProjects\blog\views\pages\auth" />
+      <recent name="C:\Users\dell\WebstormProjects\blog\helpers\error" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="console.log(SMTP_PASS);" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Jest.login required blog process describe.add blog">
+    <configuration name="get all blogs describe" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/tests/blog.test.js" />
+      <test-names>
+        <test-name value="get all blogs describe" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="get blogs" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/tests/blog.test.js" />
+      <test-names>
+        <test-name value="get blogs" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="get user's blogs,saved blogs,profile page and edit profile page test describe" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/tests/user.test.js" />
+      <test-names>
+        <test-name value="get user's blogs,saved blogs,profile page and edit profile page test describe" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="login required blog process describe.add blog" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/tests/integration-tests/blog.test.js" />
+      <test-names>
+        <test-name value="login required blog process describe" />
+        <test-name value="add blog" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/tests/auth.test.js" />
+      <test-names>
+        <test-name value="login" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt">
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.login required blog process describe.add blog" />
+        <item itemvalue="Jest.get user's blogs,saved blogs,profile page and edit profile page test describe" />
+        <item itemvalue="Jest.get all blogs describe" />
+        <item itemvalue="Jest.get blogs" />
+        <item itemvalue="Jest.login" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\dell\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f018354a-6322-4aa0-b4ef-b28252cd7d9a" name="Default Changelist" comment="" />
+      <created>1609535142369</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609535142369</updated>
+      <workItem from="1609535144279" duration="10020000" />
+      <workItem from="1609588149082" duration="32944000" />
+      <workItem from="1609671371023" duration="35136000" />
+      <workItem from="1609755332670" duration="24779000" />
+      <workItem from="1609839243606" duration="12986000" />
+      <workItem from="1609880093560" duration="149000" />
+      <workItem from="1609880274243" duration="1547000" />
+      <workItem from="1609881871592" duration="12683000" />
+      <workItem from="1609924490607" duration="36127000" />
+      <workItem from="1610017464790" duration="11930000" />
+      <workItem from="1610064209559" duration="5268000" />
+      <workItem from="1610080843220" duration="665000" />
+      <workItem from="1610106953880" duration="29058000" />
+      <workItem from="1610189452705" duration="20643000" />
+      <workItem from="1610273360067" duration="32608000" />
+      <workItem from="1610323719383" duration="5291000" />
+      <workItem from="1610359399388" duration="25555000" />
+      <workItem from="1610443239190" duration="30800000" />
+      <workItem from="1610535001997" duration="33015000" />
+      <workItem from="1610624861636" duration="1199000" />
+      <workItem from="1610654659381" duration="5772000" />
+      <workItem from="1610707340778" duration="23273000" />
+      <workItem from="1610791090465" duration="27631000" />
+      <workItem from="1610874778082" duration="28461000" />
+      <workItem from="1610959242942" duration="12941000" />
+      <workItem from="1611047901604" duration="19151000" />
+      <workItem from="1611132436923" duration="1378000" />
+      <workItem from="1611140410919" duration="17540000" />
+      <workItem from="1611221695140" duration="24110000" />
+      <workItem from="1611310653264" duration="18930000" />
+      <workItem from="1611393519850" duration="16386000" />
+      <workItem from="1611486702707" duration="17788000" />
+      <workItem from="1611571295166" duration="590000" />
+      <workItem from="1611572011099" duration="15590000" />
+      <workItem from="1611667933998" duration="10026000" />
+      <workItem from="1611738228259" duration="13248000" />
+      <workItem from="1611795732355" duration="464000" />
+      <workItem from="1611796222178" duration="530000" />
+      <workItem from="1611831035180" duration="2754000" />
+      <workItem from="1611839025186" duration="1022000" />
+      <workItem from="1611840077557" duration="224000" />
+      <workItem from="1611840330100" duration="14814000" />
+      <workItem from="1611942879155" duration="580000" />
+      <workItem from="1611943486603" duration="14000" />
+      <workItem from="1611943537404" duration="42000" />
+      <workItem from="1611944055011" duration="10214000" />
+      <workItem from="1611961410231" duration="2908000" />
+      <workItem from="1611998151805" duration="15327000" />
+      <workItem from="1612046170536" duration="523000" />
+      <workItem from="1612084688300" duration="1728000" />
+      <workItem from="1612090312647" duration="886000" />
+      <workItem from="1612117836489" duration="9254000" />
+      <workItem from="1612171619602" duration="22482000" />
+      <workItem from="1612261950380" duration="8947000" />
+      <workItem from="1612300087123" duration="10604000" />
+      <workItem from="1612347009949" duration="20475000" />
+      <workItem from="1612448542083" duration="16665000" />
+      <workItem from="1612518827089" duration="15696000" />
+      <workItem from="1612605653326" duration="7442000" />
+      <workItem from="1612708010379" duration="11603000" />
+      <workItem from="1612778603773" duration="3857000" />
+      <workItem from="1612864057715" duration="8575000" />
+      <workItem from="1612883695494" duration="13643000" />
+      <workItem from="1612951448980" duration="11331000" />
+      <workItem from="1612996742191" duration="5591000" />
+      <workItem from="1613037661216" duration="20207000" />
+      <workItem from="1613083585602" duration="1819000" />
+      <workItem from="1613164676349" duration="6411000" />
+      <workItem from="1613215322030" duration="9299000" />
+      <workItem from="1613252805063" duration="1980000" />
+      <workItem from="1613299621052" duration="20055000" />
+      <workItem from="1613414222657" duration="749000" />
+      <workItem from="1613427165423" duration="1760000" />
+      <workItem from="1613429089595" duration="630000" />
+      <workItem from="1613429735869" duration="426000" />
+      <workItem from="1613430313515" duration="206000" />
+      <workItem from="1613468083947" duration="2032000" />
+      <workItem from="1613472126587" duration="2058000" />
+      <workItem from="1613494736338" duration="11628000" />
+      <workItem from="1613557231609" duration="13154000" />
+      <workItem from="1613600030748" duration="1172000" />
+      <workItem from="1613644421286" duration="23375000" />
+      <workItem from="1613730345250" duration="16435000" />
+      <workItem from="1613815265418" duration="7789000" />
+      <workItem from="1613856789153" duration="8386000" />
+      <workItem from="1613903808155" duration="5905000" />
+      <workItem from="1613909967334" duration="13360000" />
+      <workItem from="1613989151619" duration="16372000" />
+      <workItem from="1614020684163" duration="8553000" />
+      <workItem from="1614077317670" duration="19104000" />
+      <workItem from="1614129736162" duration="1882000" />
+      <workItem from="1614161303962" duration="11081000" />
+      <workItem from="1614205342977" duration="7566000" />
+      <workItem from="1614244858088" duration="16830000" />
+      <workItem from="1614343331608" duration="18670000" />
+      <workItem from="1614422980829" duration="21632000" />
+      <workItem from="1614508876470" duration="20510000" />
+      <workItem from="1614593180228" duration="16610000" />
+      <workItem from="1614646063995" duration="3736000" />
+      <workItem from="1614680222168" duration="19772000" />
+      <workItem from="1614777010709" duration="7841000" />
+      <workItem from="1614809668844" duration="1925000" />
+      <workItem from="1614811968750" duration="2064000" />
+      <workItem from="1614850520598" duration="21739000" />
+      <workItem from="1614939673116" duration="22702000" />
+      <workItem from="1615039595093" duration="9566000" />
+      <workItem from="1615112287373" duration="21979000" />
+      <workItem from="1615199152892" duration="12006000" />
+      <workItem from="1615239167961" duration="4122000" />
+      <workItem from="1615283925601" duration="22086000" />
+      <workItem from="1615371434848" duration="15982000" />
+      <workItem from="1615463629421" duration="21512000" />
+      <workItem from="1615546074072" duration="9464000" />
+      <workItem from="1615583179517" duration="8314000" />
+      <workItem from="1615631547931" duration="30523000" />
+      <workItem from="1615717470049" duration="1498000" />
+      <workItem from="1615719021698" duration="265000" />
+      <workItem from="1615719432279" duration="16431000" />
+      <workItem from="1615800278326" duration="24578000" />
+      <workItem from="1615850835386" duration="62000" />
+      <workItem from="1615891277928" duration="13399000" />
+      <workItem from="1615917470790" duration="8241000" />
+      <workItem from="1615926059465" duration="5028000" />
+      <workItem from="1615972815964" duration="1937000" />
+      <workItem from="1616013048036" duration="12000" />
+      <workItem from="1616016450487" duration="1693000" />
+      <workItem from="1616066574712" duration="5969000" />
+      <workItem from="1616078749224" duration="9455000" />
+      <workItem from="1616104019176" duration="2709000" />
+      <workItem from="1616114091521" duration="1677000" />
+      <workItem from="1616145561905" duration="5338000" />
+      <workItem from="1616153771373" duration="8886000" />
+      <workItem from="1616184710546" duration="1359000" />
+      <workItem from="1616187288219" duration="660000" />
+      <workItem from="1616190181720" duration="1225000" />
+      <workItem from="1616191996081" duration="91000" />
+      <workItem from="1616234725602" duration="4084000" />
+      <workItem from="1616279670013" duration="275000" />
+      <workItem from="1616286339944" duration="388000" />
+      <workItem from="1616324435215" duration="559000" />
+      <workItem from="1616325057860" duration="314000" />
+      <workItem from="1616325418000" duration="696000" />
+      <workItem from="1616357415822" duration="1081000" />
+      <workItem from="1616358658089" duration="97000" />
+      <workItem from="1616433374268" duration="14000" />
+      <workItem from="1616543503322" duration="55000" />
+      <workItem from="1616582634513" duration="11746000" />
+      <workItem from="1616617616311" duration="2263000" />
+      <workItem from="1616940065965" duration="2448000" />
+      <workItem from="1617190181531" duration="272000" />
+      <workItem from="1617207954792" duration="1774000" />
+      <workItem from="1617299803035" duration="1622000" />
+      <workItem from="1617322820995" duration="25000" />
+      <workItem from="1617409900081" duration="188000" />
+      <workItem from="1617579143309" duration="680000" />
+      <workItem from="1617613352770" duration="59000" />
+      <workItem from="1617613424916" duration="121000" />
+      <workItem from="1618555668282" duration="137000" />
+      <workItem from="1618977341112" duration="7071000" />
+    </task>
+    <task id="LOCAL-00001" summary="updated">
+      <created>1613428546265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613428546265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="filename edited">
+      <created>1613473988947</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1613473988947</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Edit page has been added to profile and its functions have been configured">
+      <created>1613684182357</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1613684182357</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Admin page created.">
+      <created>1613865105338</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613865105338</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Editing has been made to the admin page and routes">
+      <created>1614174835220</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1614174835220</updated>
+    </task>
+    <task id="LOCAL-00006" summary="verifications arranged">
+      <created>1614525337634</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1614525337634</updated>
+    </task>
+    <task id="LOCAL-00007" summary="e-mail confirmation and password reset processes">
+      <created>1614813991200</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1614813991200</updated>
+    </task>
+    <task id="LOCAL-00008" summary="database improvements and style edits">
+      <created>1615161421834</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615161421834</updated>
+    </task>
+    <task id="LOCAL-00009" summary="integration tests were done">
+      <created>1615925219248</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1615925219248</updated>
+    </task>
+    <task id="LOCAL-00010" summary="config.env added">
+      <created>1615926641361</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1615926641361</updated>
+    </task>
+    <task id="LOCAL-00011" summary="comment tested and joi validation">
+      <created>1617208423759</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1617208423759</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="updated" />
+    <MESSAGE value="update" />
+    <MESSAGE value="filename edited" />
+    <MESSAGE value="Edit page has been added to profile and its functions have been configured" />
+    <MESSAGE value="Admin page created." />
+    <MESSAGE value="Editing has been made to the admin page and routes" />
+    <MESSAGE value="verifications arranged" />
+    <MESSAGE value="e-mail confirmation and password reset processes" />
+    <MESSAGE value="database improvements and style edits" />
+    <MESSAGE value="integration tests were done" />
+    <MESSAGE value="config.env added" />
+    <MESSAGE value="comment tested and joi validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="comment tested and joi validation" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/assets/ckeditor5/sample/index.html</url>
+          <line>108</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="javascript-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,33 @@
+.navbar{
+    border-top: solid blueviolet 4px;
+    background-color: black !important;
+    padding: 0;
+
+}
+.navbar a{
+    color: aliceblue !important;
+    border-bottom:solid black 3px ;
+}
+.navbar-dark .navbar-nav .nav-link:hover{
+    border-bottom:solid blueviolet 3px;
+    transition: border-bottom 1s;
+}
+.logo{
+    width: 70px;
+    height: 70px;
+}
+
+
+@media (max-width: 426px) {
+
+    #navbarProfileImg{
+        position: absolute;
+        right: 23%;
+        top: 17px;
+    }
+    .logo{
+        width: 50px;
+        height: 50px;
+    }
+
+}

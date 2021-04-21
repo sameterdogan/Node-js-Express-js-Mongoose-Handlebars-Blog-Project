@@ -1,0 +1,41 @@
+
+{{#if loginError}}
+    <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+        {{loginError}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
+
+
+{{#if registerSuccess}}
+    <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+        {{registerSuccess}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
+
+{{#if resetPasswordError}}
+    <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+        {{resetPasswordError}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
+
+
+{{#if resetPasswordSuccess}}
+    <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+        {{resetPasswordSuccess}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
+
+
+

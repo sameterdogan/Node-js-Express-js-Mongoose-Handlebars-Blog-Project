@@ -1,0 +1,99 @@
+.detailsBlogTitle{
+
+    font-weight: 700;
+    color: #292929;
+}
+.detailsBlogUser{
+    color: rgba(26, 137, 23, 1);
+    line-height: 2rem;
+    font-size: .9rem;
+}
+.detailsBlogUser:hover{
+    color: rgba(26, 137, 23, 1);
+}
+.detailsBlogInformetion{
+    color: rgba(117, 117, 117, 1);
+    font-weight: 400;
+}
+.detailsBlogContent{
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+    line-height: 1.8rem;
+    font-size: 1.2rem ;
+
+    word-break: break-all;
+}
+.detailsBlogContent img{
+    width: 100%;
+    height: auto;
+}
+
+
+.commentsArea{
+    width: 35%;
+    height: 100%;
+    background-color: #FFFFFF;
+    position: absolute;
+    position: fixed;
+    right: 0;
+    top:0;
+    overflow: scroll;
+    display: none;
+    z-index: 300;
+}
+.commentsArea a{
+    color: black;
+    font-weight: bold;
+}
+.commentsİnput{
+
+    width: 80%;
+    outline: none;
+    height: 5rem;
+    word-wrap: break-word;
+    padding: 1rem;
+    height: 4rem;
+}
+.owl-carousel .owl-item img {
+    height: 300px;
+}
+.commentDelete{
+    background-color: transparent;
+    color: transparent;
+
+}
+.commentContent:hover .commentDelete {
+
+    color: #0c0c0c;
+    transition: all 1s;
+}
+@media (max-width: 1025px)  {
+
+    .commentsArea{
+        width: 40%;
+    }
+    .commentContent{
+        padding-left: 3px;
+    }
+}
+@media (max-width: 769px)  {
+
+    .commentsArea{
+        width: 50%;
+    }
+    .commentContent{
+        padding-left: 0px;
+    }
+    .detailsBlogTitle{
+        font-size: 2rem;
+    }
+}
+@media (max-width: 426px)  {
+
+    .commentsArea{
+        width: 100%;
+    }
+    .detailsBlogTitle{
+        font-size: 1.6rem;
+    }
+
+}

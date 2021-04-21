@@ -1,0 +1,46 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "nodemon server.js ",
+    "import": "node dummyGenerator --import",
+    "delete": "node dummyGenerator --delete",
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1"
+  },
+  "keywords": [
+    "Node js Express js Mongoose Handlebars"
+  ],
+  "author": "Samet Erdoğan",
+  "license": "ISC",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "app-root-path": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
+    "joi": "^17.4.0",
+    "joi-objectid": "^3.0.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.9",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.5.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "slugify": "^1.4.6",
+    "uniqid": "^5.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.1.3"
+  }
+}

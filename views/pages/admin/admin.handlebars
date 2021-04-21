@@ -1,0 +1,93 @@
+<div id="layoutSidenav_content" class="p-5">
+    <div>
+        <div id="message" class="my-2">
+
+        </div>
+        <table id="blogsTable" class="table">
+
+            <thead>
+            <tr>
+                <th scope="col">Yazı Başlığı</th>
+                <th scope="col">Tarih</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Yazar</th>
+                <th scope="col">işlemler</th>
+            </tr>
+            </thead>
+            <tbody id="blogsTableTbody">
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/tr.min.js"></script>
+
+<script>
+    function showMessage(message, color) {
+        $('#message').html(`
+         <div class='alert alert-${color} alert-dismissible fade show' role='alert'>
+        ${message}
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+        </button>
+    </div>
+        `)
+    }
+
+    function showBlogs(blogs) {
+
+        blogs.forEach(blog => {
+            $('#blogsTableTbody').append(`
+              <tr>
+                <td><a href='/blogs/${blog.slugTitle}/details' target='_blank'>${blog.blogTitle.slice(0, 30)}...</a> </td>
+                <td>${moment(blog.createdAt).format('LL')}</td>
+                <td>${blog.category.category}</td>
+                <td><a href='/users/${blog.user.slugName}/profile' target='_blank' >${blog.user.name}</a></td>
+                <td>
+                   <button data-blogId='${blog._id}'  class='btn btn-light btn-sm deleteBlogButton far fa-trash-alt' >   </button>
+
+                </td>
+            </tr>
+             `)
+        })
+    }
+
+    function getBlogs() {
+        $.get({
+            url: `/api/blogs/allBlogs`,
+            success: (res) => {
+                console.log(res)
+                showBlogs(res.data.blogs)
+                $('#blogsTable').dataTable()
+
+            },
+            error: (err) => {
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    }
+
+    getBlogs()
+
+    $(document).on('click', '.deleteBlogButton', function(e) {
+        const blogId = $(e.target).attr('data-blogId')
+        $.ajax({
+            type: 'delete',
+            url: `/api/blogs/${blogId}`,
+            success: function(res) {
+                e.target.parentElement.parentElement.remove()
+                showMessage(res.message, 'success')
+            },
+            error: function(err) {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    })
+
+
+</script>

@@ -1,0 +1,142 @@
+@import "profilePage.css";
+@import "blogDetailPage.css";
+@import "homePage.css";
+@import "loginAndRegisterPage.css";
+@import "navbar.css";
+@import "footer.css";
+@import "editProfilePage.css";
+@import "blog.css";
+
+.container{
+    max-width: 1300px !important;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body{
+    font-size: 16px;
+    min-height: 100%;
+    padding-bottom: 60px;
+    position: relative;
+    word-wrap: break-word;
+    color: rgba(0,0,0,.8);
+}
+
+
+form:invalid button[type="submit"]{
+    pointer-events: none;
+    opacity: .3;
+    cursor: not-allowed;
+
+}
+
+form:valid button[type="submit"]{
+    pointer-events: initial;
+    opacity: 1;
+    cursor: pointer;
+
+}
+form input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+html{
+    height: 100%;
+    font-size: 1rem;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+
+.profileImg{
+    width: 30px;
+    height: 30px;
+    border-radius:50% ;
+}
+.bigProfileImg{
+    width: 220px;
+    height: 220px;
+}
+.dropdown-item:focus{
+    background-color: #343a40;
+    color: white;
+    outline: none;
+}
+
+.popover-header{
+    background-color: #0c0c0c;
+    color: #eaeaea;
+}
+
+input[type=text],[type=password],[type=email] {
+    box-shadow: none !important;
+
+    border: none !important;
+
+    border-bottom: 2px solid blueviolet !important;
+    border-radius: 0px;
+}
+
+#searchInput{
+    background-color: rgb(255,255,255);
+    width: 100%;
+    border: solid 1px #d6d6d6 !important;
+    outline: none;
+
+    border-radius: 6px;
+    padding: 2px;
+
+}
+
+#searchInput:focus{
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
+}
+
+.dataTables_paginate{
+    margin-bottom: 5rem !important;
+}
+
+.button{
+    border: solid  rgba(0,0,0,.30) 2px;
+    color: #1b1b1b;
+}
+
+.button:hover{
+    border: solid rgba(0,0,0,.68) 2px;
+    color: #272727;
+}
+
+
+
+@media (max-width: 769px)  {
+    .bigProfileImg{
+        width: 120px;
+        height: 120px;
+    }
+
+
+}
+@media (max-width: 426px)  {
+    html,body{
+        font-size: .9rem;
+    }
+    .bigProfileImg{
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,380 @@
+<div class="container">
+
+    <div class="row my-5">
+        <div class="col-lg-3 col-sm-12 col-12">
+            <div class="row">
+                <div class="col-lg-12  col-4 mb-2 text-center">
+                    <img class="img-fluid img-responsive rounded-circle bigProfileImg "
+                         src="/assets/image/profileImage/{{user.profileImg}}" alt="">
+                </div>
+                <div class="col-lg-12  col-8 d-flex align-items-center">
+                    <h5 class="my-2 mx-auto" id="profilePageUserName">{{user.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p id="editProfileWrap">
+
+                    </p>
+                    {{#if user.company}}
+                        <p><i class="far fa-building text-dark mr-2"></i> <span class="">{{user.company}} </span></p>
+                    {{/if}}
+
+                    {{#if user.linkedIn}}
+                        <p><i class="fab fa-linkedin-in text-dark mr-2"></i> <a class="social" href="{{user.linkedIn}}"
+                                                                                target="_blank">{{user.name}} -
+                            linkedin </a></p>
+                    {{/if}}
+                    {{#if user.instagram}}
+                        <p><i class="fab fa-instagram text-dark mr-2"></i> <a class="social" href="{{user.instagram}}"
+                                                                              target="_blank">{{user.name}} -
+                            instagram</a></p>
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-sm-12 col-12">
+            <div class="row">
+                <div id="message" class="col-12">
+
+                </div>
+                <div id="menu" class="col-12  pl-1 border-bottom">
+                    <button id="blogsButton" class="btn btn-sm shadow-none profilePageButton">Yazılar</button>
+                    <button id="savedBlogsButton" class="btn btn-sm shadow-none profilePageButton">Okuma listesi
+                    </button>
+                </div>
+                <div id="searchBar" class="col-12">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+                            <input class="mt-2" id="searchInput" placeholder="Yazı ara..." type="text">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <select class="btn btn-sm btn-dark mt-2" name="sortBy" id="sortBySelect">
+                                <option value="createdAt">Tarihe Göre Sıralama</option>
+                                <option value="mostLike">Beğeniye Göre Sıralama</option>
+                                <option value="mostComment">Yorum Sayısına göre Sıralama</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="content" class="col-12 pr-4">
+
+                </div>
+
+                <div id="showMoreButtonWrap" class="col-12 text-center my-5">
+                    <button style="width: 350px" class="btn btn-light" id="showMoreButton">Daha fazla yükle</button>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    {{>_confirm}}
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/tr.min.js"></script>
+<script>
+    let selectedButton = 'blogs'
+    const userImage = "{{user.profileImg}}"
+    const userName = "{{user.name}}"
+    const userSlugName = "{{user.slugName}}"
+    const userId = "{{user._id}}"
+    const loginUserId = "{{loginUser._id}}"
+    let isOwnerProfile = userId == loginUserId
+
+    function showMessage(message, color) {
+
+        $('#message').html('')
+        $('#message').html(
+            `
+                          <div class='alert alert-${color} alert-dismissible fade show my-3' role='alert'>
+                                ${message}
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                           </div>
+                        `)
+
+        $('html, body').animate({ scrollTop: 0 }, 'slow')
+    }
+
+    function errorHandling(err) {
+        switch (err.status) {
+            case 400:
+                showMessage(err.responseJSON.error, 'danger')
+                break
+            case 401:
+                window.location = '/auth/login'
+                break
+            case 403:
+                window.location = '/403'
+                break
+            case 404:
+                window.location = '*'
+                break
+            case 500:
+                window.location = '/500'
+        }
+    }
+
+    function editProfileButtonCreate() {
+        if (isOwnerProfile) {
+            $('#editProfileWrap').html(` <a href='/users/${userSlugName}/editProfile' class='btn btn-dark btn-sm btn-block rounded my-2'> Profili Düzenle </a>`)
+        }
+    }
+
+    editProfileButtonCreate()
+
+    function showEmptyData() {
+        $('#content').html(`
+        <h4 class='text-center mt-5'> Burada bir şey yok </h4>
+
+        `)
+    }
+
+    function showBlogs(res, isSearchAndSort = false) {
+
+        const blogs = res.data.blogs
+        if (isSearchAndSort == true) {
+            $('#content').html('')
+        }
+        $(blogs).each((index, blog) => {
+            $('#content').append(`
+
+        <div class='row blog border-bottom'>
+            <div class='col-12'>
+                    <a href='/blogs/${blog.slugTitle}/details' class='blogTitle'> ${blog.blogTitle.length > 60 ? blog.blogTitle.slice(0, 60) + '...' : blog.blogTitle}</a>
+                </p>
+
+                <p class='blogSummary'>
+                    ${blog.blogSummary.length > 100 ? blog.blogSummary.slice(0, 60) + '...' : blog.blogSummary}
+                </p>
+
+                <p class=''>
+                    <span class='blogInformetion'> ${moment(blog.createdAt).format('LL')} - ${blog.readingTime} dakika okuma</span>
+                     ${isOwnerProfile ? `
+                      <span class='float-right'>
+                         <button data-blogId='${blog._id}' data-toggle='modal' data-target='#confirm-delete'  class='btn btn-light btn-sm deleteBlogButton far fa-trash-alt' >   </button>
+                         <a href='/blogs/${blog.slugTitle}/edit' target='_blank' class='btn btn-light btn-sm far fa-edit'> </a>
+                      </span>` : ''}
+                </p>
+
+             </div>
+        </div>
+
+      `)
+        })
+
+    }
+
+    function showSavedBlogs(res, isSearchAndSort = false) {
+        const savedBlogs = res.data.savedBlogs
+        if (isSearchAndSort == true) {
+            $('#content').html('')
+        }
+        $(savedBlogs).each((index, savedBlog) => {
+            $('#content').append(`
+
+        <div class='row savedBlog my-5'>
+            <div class='col-8 pr-1'>
+                <h6>
+
+                    <a class='blogUserName' href='/users/${savedBlog.user.slugName}/profile'>
+                    <img  src='/assets/image/profileImage/${savedBlog.user.profileImg}' class='profileImg'  alt=''> ${savedBlog.user.name}
+                    </a>
+
+                </h6>
+                <p class='my-2'>
+                    <a href='/blogs/${savedBlog.slugTitle}/details' class='blogTitle'> ${savedBlog.blogTitle.length > 60 ? savedBlog.blogTitle.slice(0, 60) + '...' : savedBlog.blogTitle}</a>
+                </p>
+
+                <p class='blogSummary'>
+                    ${savedBlog.blogSummary.length > 100 ? savedBlog.blogSummary.slice(0, 60) + '...' : savedBlog.blogSummary}
+                </p>
+
+                <p class='blogInformetion'>
+                  ${moment(savedBlog.createdAt).format('LL')} - ${savedBlog.readingTime} dakika okuma
+                  ${isOwnerProfile ? `<button data-id='${savedBlog._id}' class='saveOrUndoSaveButton btn shadow-none  float-right text-dark fas fa-bookmark'></button>` : ''}
+
+                 </p>
+
+            </div>
+            <div class='col-4 blogImageWrap'>
+              <a href='/blogs/${savedBlog.slugTitle}/details'><img class='' src='/assets/image/blogImage/${savedBlog.blogImage}' alt='Fotoğraf görüntülenemiyor.'></a>
+            </div>
+        </div>
+
+      `)
+        })
+
+    }
+
+    function getBlogs(sortBy = 'createdAt', startIndex = 0, search = '', isSearchAndSort = false) {
+        $.get({
+            url: `/api/users/${userId}/blogs?sortBy=${sortBy}&search=${search}&startIndex=${startIndex}`,
+            success: (res) => {
+                console.log(res)
+                isNextBlogPage(res)
+                if (res.data.blogs < 1) {
+                    showEmptyData()
+                } else {
+                    showBlogs(res, isSearchAndSort)
+                }
+
+            },
+            error: (err) => {
+                errorHandling(err)
+            },
+        })
+
+    }
+
+    function getSavedBlogs(sortBy = 'createdAt', startIndex = 0, search = '', isSearchAndSort = false) {
+        $.get({
+            url: `/api/users/${userId}/savedBlogs?sortBy=${sortBy}&search=${search}&startIndex=${startIndex}`,
+            success: (res) => {
+                console.log(res)
+                isNextBlogPage(res)
+
+                if (res.data.savedBlogs.length < 1) {
+                    console.log('asdas')
+                    showEmptyData()
+                } else {
+                    showSavedBlogs(res, isSearchAndSort)
+                }
+
+            },
+            error: (err) => {
+                errorHandling(err)
+            },
+        })
+    }
+
+    function isNextBlogPage(res) {
+        res.data.isEndIndex === false ? $('#showMoreButtonWrap').show() : $('#showMoreButtonWrap').hide()
+    }
+
+    getBlogs(undefined, undefined, undefined, false)
+
+    $('#blogsButton').click((e) => {
+        $('.profilePageButton').css('border', '0px')
+        $(e.target).css('border-bottom', 'solid #333333 2px')
+        selectedButton = 'blogs'
+        $('#searchInput').val('')
+        $('#sortBySelect').val('createdAt')
+        getBlogs(undefined, undefined, undefined, true)
+    })
+
+
+    $('#savedBlogsButton').click((e) => {
+        $('.profilePageButton').css('border', '0px')
+        $(e.target).css('border-bottom', 'solid #333333 2px')
+        selectedButton = 'savedBlogs'
+        $('#searchInput').val('')
+        $('#sortBySelect').val('createdAt')
+        getSavedBlogs(undefined, undefined, undefined, true)
+    })
+
+
+    $('#sortBySelect').change((e) => {
+        const search = $('#searchInput').val()
+        const sortBy = $(e.target).val()
+        switch (selectedButton) {
+            case 'blogs':
+                getBlogs(sortBy, undefined, search, true)
+                break
+            case 'savedBlogs':
+                getSavedBlogs(sortBy, undefined, search, true)
+                break
+        }
+    })
+
+    $('#searchInput').keyup((e) => {
+        const search = $(e.target).val()
+        const sortBy = $('#sortBySelect').val()
+        switch (selectedButton) {
+            case 'blogs':
+                getBlogs(sortBy, undefined, search, true)
+                break
+            case 'savedBlogs':
+                getSavedBlogs(sortBy, undefined, search, true)
+                break
+        }
+
+    })
+
+
+    //kaydedilenler listesinden blog çıkartma
+    $('#content').on('click', '.saveOrUndoSaveButton', function(e) {
+        const blogId = $(e.target).attr('data-id')
+        console.log(blogId)
+        $.get({
+            url: `/api/blogs/${blogId}/saveOrUndoSaveBlog`,
+            success: (res) => {
+                console.log(res)
+                e.target.parentElement.parentElement.parentElement.remove()
+            },
+            error: (err) => {
+                errorHandling(err)
+            },
+        })
+    })
+
+    //blog silme
+    $('#content').on('click', '.deleteBlogButton', function(e) {
+        $('#modalDeleteButton').attr('data-id', `${$(e.target).attr('data-blogId')}`)
+
+    })
+
+
+    $('#modalDeleteButton').click(function(e) {
+        let blogId = $(e.target).attr('data-id')
+        $.ajax({
+            url: `/api/blogs/${blogId}`,
+            type: 'delete',
+            success: function(res) {
+                $('#content .blog .deleteBlogButton').each(function(number, blog) {
+                    if ($(blog).attr('data-blogId') == blogId) {
+                        blog.parentElement.parentElement.parentElement.parentElement.remove()
+                    }
+                })
+
+                $('#confirm-delete').modal('hide')
+                $('.modal-backdrop').hide()
+            },
+            error: function(err) {
+                errorHandling(err)
+            },
+        })
+
+    })
+
+
+    //daha fazla blog yükleme
+
+
+    $('#showMoreButton').click(function() {
+        const sortBy = $('#sortBySelect').val()
+        const search = $('#profilePageSearchInput').val()
+        let startIndex
+        console.log(selectedButton)
+        switch (selectedButton) {
+            case 'blogs':
+                startIndex = $('#content .blog').length
+                getBlogs(sortBy, startIndex, search, false)
+                break
+            case 'savedBlogs':
+                startIndex = $('#content .savedBlog').length
+                getSavedBlogs(sortBy, startIndex, search, false)
+                break
+        }
+    })
+
+
+</script>

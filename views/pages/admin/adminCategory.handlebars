@@ -1,0 +1,181 @@
+<div id="layoutSidenav_content" class="p-5">
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <div id="message" class="my-3">
+
+            </div>
+            <input id="categoryInput" type="text" required class="form-control">
+            <button id="addCategoryButton" class="btn btn-dark d-inline my-3">Ekle</button>
+            <button id="editCategoryButton" class="btn btn-warning my-3 d-none"> Güncelle</button>
+            <button id="cancelButton" class="btn btn-danger my-3 d-none"> İptal</button>
+            <table id="categoryTable" class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">İşlemler</th>
+
+                </tr>
+                </thead>
+                <tbody id="categoriesTableTbody">
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+<script>
+    let editTr = null
+
+
+    function showMessage(message, color) {
+        $('#message').html(`
+         <div class='alert alert-${color} alert-dismissible fade show' role='alert'>
+        ${message}
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+        </button>
+    </div>
+        `)
+    }
+
+    function showAddedCategory(category) {
+        $('#categoriesTableTbody').prepend(`
+                       <tr>
+                            <td>${category.category}</td>
+                            <td>
+                                <button data-categoryId='${category._id}'  class='btn btn-light btn-sm deleteCategory far fa-trash-alt' >   </button>
+                                <button data-categoryId='${category._id}'  class='btn btn-light btn-sm editCategory far fa-edit'> </button>
+                            </td>
+                       </tr>
+
+        `)
+    }
+
+    function showCategories(categories) {
+        $(categories).each(function(number, category) {
+            console.log(category)
+            console.log(number)
+            $('#categoriesTableTbody').append(`
+                        <tr>
+                            <td>${category.category}</td>
+                            <td>
+                                <button data-categoryId='${category._id}' class='btn btn-light btn-sm deleteCategory far fa-trash-alt' >   </button>
+                                <button data-categoryId='${category._id}' class='btn btn-light btn-sm editCategory far fa-edit'> </button>
+                            </td>
+                        </tr>
+
+
+            `)
+        })
+    }
+
+    function noneCategoryAndCancelButton() {
+        editTr = null
+        document.getElementById('editCategoryButton').classList.replace('d-inline', 'd-none')
+        $('#categoryInput').val('')
+        document.getElementById('cancelButton').classList.replace('d-inline', 'd-none')
+        document.getElementById('addCategoryButton').classList.add('d-inline')
+
+    }
+
+    $.get({
+        url: '/api/categories',
+        success: function(res) {
+            console.log(res)
+            showCategories(res.data.categories)
+            $('#categoryTable').dataTable()
+
+        },
+        error: function(err) {
+            showMessage(err.responseJSON.error, 'danger')
+        },
+    })
+
+    $('#addCategoryButton').click(function(e) {
+        const category = $('#categoryInput').val()
+        $.post({
+            url: `/api/categories`,
+            data: { 'category': category },
+            dataType: 'json',
+            success: function(res) {
+                showAddedCategory(res.data.category)
+                showMessage(res.message, 'success')
+                $('#categoryInput').val('')
+            },
+            error: function(err) {
+                showMessage(err.responseJSON.error, 'danger')
+
+            },
+        })
+
+    })
+
+    //delete category
+    $(document).on('click', '.deleteCategory', function(e) {
+        let categoryId = $(e.target).attr('data-categoryId')
+        $.ajax({
+            type: 'delete',
+            url: `/api/categories/${categoryId}`,
+            success: function(res) {
+                e.target.parentElement.parentElement.remove()
+                showMessage(res.message, 'success')
+                noneCategoryAndCancelButton()
+            },
+            error: function(err) {
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    })
+
+    //show category and cancel button
+    $(document).on('click', '.editCategory', function(e) {
+        editTr = e.target.parentElement.parentElement
+        console.log(editTr)
+        document.getElementById('editCategoryButton').classList.replace('d-none', 'd-inline')
+        $('#editCategoryButton').attr('data-categoryId', $(e.target).attr('data-categoryId'))
+        $('#categoryInput').val(e.target.parentElement.previousElementSibling.textContent)
+        document.getElementById('cancelButton').classList.replace('d-none', 'd-inline')
+        document.getElementById('addCategoryButton').classList.replace('d-inline', 'd-none')
+
+    })
+
+    //edit category
+    $('#editCategoryButton').click(function(e) {
+        const categoryId = $(e.target).attr('data-categoryId')
+        const category = $('#categoryInput').val()
+        $.ajax({
+            type: 'put',
+            url: `/api/categories/${categoryId}`,
+            data: { 'category': category },
+            dataType: 'json',
+            success: function(res) {
+                console.log(res)
+                showMessage(res.message, 'success')
+
+                $(editTr).html(
+                    `
+                    <td>${res.data.category.category}</td>
+                            <td>
+                                <button data-categoryId='${res.data.category._id}' class='btn btn-light btn-sm deleteCategory far fa-trash-alt' >   </button>
+                                <button data-categoryId='${res.data.category._id}' class='btn btn-light btn-sm editCategory far fa-edit'> </button>
+                            </td>
+                   `,
+                )
+                noneCategoryAndCancelButton()
+            },
+            error: function(err) {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    })
+
+    $('#cancelButton').click(function() {
+        noneCategoryAndCancelButton()
+    })
+</script>

@@ -1,0 +1,64 @@
+
+    {{#if registerError}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{{registerError}}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+
+    {{#each addBlogErrors}}
+
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/each}}
+
+    {{#if forgotPasswordSuccess}}
+        <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+            {{{forgotPasswordSuccess}}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+
+    {{#if forgotPasswordError}}
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            {{{forgotPasswordError}}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+
+    {{#if resetPasswordError}}
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            {{resetPasswordError}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+
+    {{#if checkEmailError}}
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            {{checkEmailError}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}
+
+    {{#if checkEmailSendCodeError}}
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            {{checkEmailSendCodeError}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{/if}}

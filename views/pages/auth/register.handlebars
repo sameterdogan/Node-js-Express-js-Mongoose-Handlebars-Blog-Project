@@ -1,0 +1,88 @@
+<div class="container my-5 px-5" style="height: 100%; min-height: 100%; ">
+
+
+    <div id="message">
+
+    </div>
+
+    <div class="row row-border py-3 rounded ">
+        <div class="col-lg-5 col-md-6 mx-auto col-sm-12">
+            <img src="/assets/image/register.jpg" class="img-fluid img-responsive" alt="fotoğraf görüntülenemiyor">
+        </div>
+
+        <div class="col-lg-6 col-md-6 mx-auto col-sm-12 my-5  rounded ">
+
+            <form id="registerForm">
+                <div class="form-group">
+
+                    <input type="text" name="name" class="form-control" id="name" value="{{name}}"
+                           placeholder="İsmini ve soyismini gir." required minlength="5" maxlength="25"
+                           autocomplete="off">
+                    <small id="nameRule" class="form-text p-1 rounded">İsim - Soyisim alanı en az 5 en fazla 25 karakter
+                        olmalı.</small>
+
+
+                </div>
+                <div class="form-group">
+
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                           value="{{email}}" placeholder="E-posta adresini gir."
+                           pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" required>
+                    <small id="emailRule" class="form-text p-1 rounded">Geçerli bir E-posta adresi giriniz.</small>
+                </div>
+                <div class="form-group">
+
+                    <input type="password" name="password" class="form-control  " id="password" value="{{password}}"
+                           placeholder="Şifreni gir." required minlength="6" maxlength="14">
+
+                    <small id="passwordRule" class="form-text p-1 rounded">Şifre en az 8 en fazla 20 karakter
+                        olmalı. </small>
+                </div>
+                <button type="submit" id="register" class="btn btn rounded-pill btn-primary">Kayıt Ol</button>
+                <a href="/auth/login" class="ml-2">veya giriş yap</a>
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function showMessage(message, color) {
+
+        $('#message').html('')
+        $('#message').html(
+            `
+                          <div class='alert alert-${color} alert-dismissible fade show my-3' role='alert'>
+                                ${message}
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                           </div>
+                        `)
+    }
+
+    $(document).on('submit', '#registerForm', function(event) {
+        event.preventDefault()
+
+        $.ajax({
+            url: '/api/auth/register',
+            type: 'POST',
+            data: $('#registerForm').serialize(),
+
+            success: function(res) {
+                window.location = res.toUrl
+                console.log(err)
+            },
+            error: (err) => {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+
+    })
+
+
+</script>

@@ -1,0 +1,14 @@
+.row-border{
+    border: blueviolet solid 5px;
+}
+.row-border img{
+    height: 400px;
+}
+
+
+
+@media (max-width: 426px)  {
+    .row-border img{
+        display: none;
+    }
+}

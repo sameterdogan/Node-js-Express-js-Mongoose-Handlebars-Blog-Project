@@ -1,0 +1,31 @@
+<div class="container p-4">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-7  col-sm-12 mx-auto " style="height: 100px">
+            <p>{{> _validation}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-7  col-sm-12 mx-auto border my-3 p-4">
+            <p class="">
+            <h4 class="text-center">E-posta onayı</h4>
+            <p class="text-center">
+                E-posta hesabına gelen 6 haneli kodu gir.
+            </p>
+            <p class="text-center">
+                Kodun geçerlilik süresi 5 dakikadır.
+            </p>
+
+            <form action="/auth/check_email" method="post">
+                <input type="text" name="checkEmailCode" class="form-control" required placeholder="Kodu gir">
+                <button class="btn btn-block btn-outline-primary rounded-pill my-4">Gönder</button>
+            </form>
+
+            </p>
+
+
+        </div>
+    </div>
+
+</div>

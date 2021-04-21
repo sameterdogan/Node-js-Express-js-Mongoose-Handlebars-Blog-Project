@@ -1,0 +1,372 @@
+<div class="container" style="min-height: 1000px">
+    {{> _flash}}
+    <div id="message">
+
+    </div>
+    <h5 class="my-5"><img src="/assets/image/svg/trending.svg" style="width: 40px;height: 40px" alt=""> TREND YAZILAR
+    </h5>
+    <section id="trendBlogs" class="row trendBlogsWrap p-2  my-5 ">
+
+
+    </section>
+
+    {{#if loginUser}}
+        <section class="row searchBarWrap p-2 ">
+
+            <div id="searchBar" class="searchBar col-xl-6 ">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-9 col-md-8 col-12 p-2">
+                        <input class="mt-2" id="searchInput" placeholder="Yazı ara..." type="text">
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-12 text-left p-2 pt-0">
+                        <select class="btn btn-sm btn-dark mt-2" name="sortBy" id="sortBySelect">
+                            <option value="createdAt">Tarihe Göre Sıralama</option>
+                            <option value="mostLike">Beğeniye Göre Sıralama</option>
+                            <option value="mostComment">Yorum Sayısına göre Sıralama</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <section class="row blogsWrap p-3 my-4  ">
+
+            <div id="blogs" class="col-xl-7 p-0 pr-0 blogs ">
+
+            </div>
+
+            <div id="savedBlogs" class="col-xl-4 p-3 savedBlogs ">
+                <h5 class="mb-4 font-weight-bold"><img src="/assets/image/svg/book.svg" alt="görüntülenemiyor"
+                                                       style="width: 35px; height:35px"> OKUMA LİSTESİ</h5>
+            </div>
+        </section>
+        <div class="showMore row my-5 text-center">
+            <div id="showMoreButtonWrap" class="col-xl-6 col-md-12 ">
+                <button class="btn btn-light" id="showMoreButton">Daha fazla yazı yükle</button>
+            </div>
+        </div>
+    {{else}}
+        <section class="row searchBarWrap p-2 ">
+
+            <div id="searchBar" class="searchBar col-xl-10 mx-auto ">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-12 p-2">
+                        <input class="mt-2" id="searchInput" placeholder="Yazı ara..." type="search">
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 text-right p-2 pt-0">
+                        <select class="btn btn-sm btn-dark mt-2" name="sortBy" id="sortBySelect">
+                            <option value="createdAt">Tarihe Göre Sıralama</option>
+                            <option value="mostLike">Beğeniye Göre Sıralama</option>
+                            <option value="mostComment">Yorum Sayısına göre Sıralama</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <section class="row blogsWrap p-3 my-4  ">
+
+            <div id="blogs" class="col-xl-10 pl-2 pr-0 mx-auto blogs ">
+
+            </div>
+        </section>
+
+        <div class="row my-5 text-center">
+            <div id="showMoreButtonWrap" class="col-12 ">
+                <button class="btn btn-light" id="showMoreButton">Daha fazla yazı yükle</button>
+            </div>
+        </div>
+
+    {{/if}}
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/tr.min.js"></script>
+<script>
+    const loginUserId = "{{loginUser._id}}"
+    const isUserLogin = loginUserId ? true : false
+
+
+    //helper methots
+    function showMessage(message, color) {
+
+        $('#message').html('')
+        $('#message').html(
+            `
+                          <div class='alert alert-${color} alert-dismissible fade show my-3' role='alert'>
+                                ${message}
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                           </div>
+                        `)
+
+        $('html, body').animate({ scrollTop: 0 }, 'slow')
+    }
+
+    function showNotData() {
+        $('#blogs').html(`
+        <h4 class='text-center mt-5'> Burada bir şey bulamadık. </h4>
+
+    `)
+    }
+
+    function getErrorMessage(parent) {
+        $(`#${parent}`).html(
+            `
+        <h2 class='text-center my-5' >    Şu anda burayı gösteremiyoruz en kısa zamanda düzelecek. </h2>
+
+        `,
+        )
+    }
+
+    function showLoginPopover(target) {
+        $(target).popover({
+            container: 'body',
+            trigger: 'manual',
+            title: 'Giriş Yapmalısın',
+            placement: 'top',
+            html: true,
+            content: `Önce giriş yapmalısın. <a href='/auth/login'>Giriş Yap</a> `,
+        })
+        $(target).popover('show')
+    }
+
+    function nextPageControl(res) {
+        res.data.isEndIndex === false ? $('#showMoreButtonWrap').show() : $('#showMoreButtonWrap').hide()
+    }
+
+    function isTheSavedBlog(blogId) {
+        const loginUser = "{{loginUser.id}}"
+        let userSavedBlogs = "{{loginUser.savedBlogs}}"
+        userSavedBlogs = userSavedBlogs.split(',')
+        if (loginUser && userSavedBlogs.indexOf(blogId) != -1) {
+            return `<button data-id='${blogId}' data-toggle='popover' class='saveOrUndoSaveBlogButton btn shadow-none  float-right text-dark fas fa-bookmark'></button>`
+        }
+        return `<button data-id='${blogId}' data-toggle='popover' class='saveOrUndoSaveBlogButton btn shadow-none  float-right text-dark far fa-bookmark'></button>`
+
+    }
+
+    //main methots
+    function showBlogs(res, isSearchAndSort = false) {
+        const blogs = res.data.blogs
+        if (isSearchAndSort === true) {
+            $('#blogs').html('')
+        }
+        $(blogs).each((index, blog) => {
+            $('#blogs').append(`
+
+        <div class='row blog'>
+            <div class='col-8 p-0 pr-1'>
+                <h6>
+                    <a class='blogUserName' href='/users/${blog.user.slugName}/profile'>
+                    <img  src='/assets/image/profileImage/${blog.user.profileImg}' class='profileImg'  alt='Fotoğraf görüntülenemiyor.'> ${blog.user.name}
+                    </a>
+
+                </h6>
+                <p class='my-2'>
+                    <a href='/blogs/${blog.slugTitle}/details' class='blogTitle'> ${blog.blogTitle.length > 50 ? blog.blogTitle.slice(0, 50) + '...' : blog.blogTitle}</a>
+                </p>
+                <p class='blogSummary'>
+                    ${blog.blogSummary.length > 100 ? blog.blogSummary.slice(0, 100) + '...' : blog.blogSummary}
+                </p>
+                <p class='blogInformetion'>
+                   ${moment(blog.createdAt).format('LL')} -
+                   ${blog.readingTime} dakika okuma
+                   <span class='blogCategory'> - ${blog.category.category}</span>
+                   ${isTheSavedBlog(blog._id)}
+                </p>
+            </div>
+            <div class='col-4 blogImageWrap'>
+              <a href='/blogs/${blog.slugTitle}/details'><img class='' src='/assets/image/blogImage/${blog.blogImage}' alt='Fotoğraf görüntülenemiyor.'></a>
+            </div>
+        </div>
+
+      `)
+        })
+
+    }
+
+    function showTrendBlogs(res) {
+        const trendBlogs = res.data.blogs
+        $(trendBlogs).each((index, trendBlog) => {
+
+            $('#trendBlogs').append(`
+
+           <div class='col-lg-4 col-md-6 col-sm-12'>
+                <div class='row trendBlog'>
+                    <div class='col-2 pr-0'>
+                        <p class='trendNumber'>0${index + 1}</p>
+                    </div>
+                    <div class='col-10 pl-0 mt-2 '>
+                        <h6>
+                            <a class='blogUserName' href='/users/${trendBlog.user.slugName}/profile'>
+                              <img  src='/assets/image/profileImage/${trendBlog.user.profileImg}' class='profileImg'  alt=''> ${trendBlog.user.name}
+                            </a>
+                        </h6>
+                         <p class='my-2'>
+                            <a href='/blogs/${trendBlog.slugTitle}/details' class='blogTitle'>
+                               ${trendBlog.blogTitle.length > 60 ? trendBlog.blogTitle.slice(0, 60) + '...' : trendBlog.blogTitle}
+                            </a>
+                         </p>
+                         <p class='blogInformetion'>
+                             ${moment(trendBlog.createdAt).format('LL')} -
+                             ${trendBlog.readingTime} dakika okuma -
+                             ${trendBlog.category.category}
+
+                          </p>
+
+                    </div>
+             </div>
+
+           </div>
+
+        `)
+
+        })
+    }
+
+    function showSavedBlogs(res) {
+
+        if (res.data.savedBlogs.length < 1) {
+
+            $('#savedBlogs').append(`
+              <div class='notSavedBlogs text-center my-5'>
+
+                 <p class='font-weight-bold'>
+                   Yazıları daha sonra okumak için ekle
+                 </p>
+
+                  <p>
+                     <i class='far fa-bookmark'></i> Yer imi simgesine tıklayarak yazıyı okuma listene ekleyebilirsin.
+                  </p>
+
+               </div>
+
+
+         `)
+        }
+
+        res.data.savedBlogs.forEach(savedBlog => {
+            $('#savedBlogs').append(`
+          <div class='row savedBlog'>
+<div class='col-12'>
+  <p>
+                <a href='/users/${savedBlog.user.slugName}/profile' class='blogUserName'> <img src='/assets/image/profileImage/${savedBlog.user.profileImg}' class='profileImg mr-2' alt=''>${savedBlog.user.name}</a>
+            </p>
+            <p class='blogTitle '>
+                <a href='/blogs/${savedBlog.slugTitle}/details' class='blogTitle'> ${savedBlog.blogTitle.length > 50 ? savedBlog.blogTitle.slice(0, 50) + '...' : savedBlog.blogTitle}</a>
+            </p>
+            <p class='blogInformetion'>
+                  ${moment(savedBlog.createdAt).format('LL')} -
+                   ${savedBlog.readingTime} dakika okuma
+
+            </p>
+</div>
+
+        </div>
+
+       `)
+        })
+    }
+
+    function getTrendBlogs() {
+        $.get({
+            url: `/api/blogs?sortBy=mostLike&limit=6`,
+            success: (res) => {
+                console.log(res)
+                showTrendBlogs(res)
+            },
+            error: (err) => {
+                console.log(err)
+                getErrorMessage('trendBlogs')
+            },
+        })
+    }
+
+    function getBlogs(sortBy = 'createdAt', startIndex = 0, search = '', isSearchAndSort = false) {
+        $.get({
+            url: `/api/blogs?sortBy=${sortBy}&startIndex=${startIndex}&search=${search}`,
+            success: (res) => {
+                console.log(res)
+                if (res.data.blogs < 1 && isSearchAndSort) {
+                    showNotData()
+                } else {
+                    showBlogs(res, isSearchAndSort)
+                }
+                nextPageControl(res)
+            },
+            error: (err) => {
+                console.log(err)
+                getErrorMessage('blogs')
+                $('#showMoreButtonWrap').hide()
+            },
+        })
+    }
+
+    function getSavedBlogs() {
+        $.get({
+            url: `/api/users/${loginUserId}/savedBlogs?limit=2}`,
+            success: (res) => {
+                console.log(res)
+                showSavedBlogs(res)
+            },
+            error: (err) => {
+                console.log(err)
+            },
+        })
+    }
+
+    getTrendBlogs()
+    getBlogs()
+
+    if (isUserLogin) getSavedBlogs()
+
+
+    $('#searchInput').keyup((e) => {
+        const searchKey = $(e.target).val()
+        const sortBy = $('#sortBySelect').val()
+        getBlogs(sortBy, undefined, searchKey, true)
+    })
+
+    $('#sortBySelect').change(function(e) {
+        const sortBy = $(e.target).val()
+        const searchKey = $('#searchInput').val()
+        getBlogs(sortBy, undefined, searchKey, true)
+    })
+
+    $('#showMoreButton').click(function() {
+        const searchKey = $('#blogSearch').val()
+        const startIndex = $('.blog').length
+        getBlogs('createdAt', startIndex, searchKey, undefined)
+
+    })
+
+    $('#blogs,#trendBlogs').on('click', '.saveOrUndoSaveBlogButton', function(e) {
+        const blogId = $(e.target).attr('data-id')
+        $.get({
+            url: `/api/blogs/${blogId}/saveOrUndoSaveBlog`,
+            success: (res) => {
+                console.log(res)
+                e.target.className = `saveOrUndoSaveBlogButton btn shadow-none  float-right text-dark ${res.icon} sss`
+            },
+            error: (err) => {
+                showLoginPopover(e.target)
+            },
+        })
+    })
+
+    //popover kapatma
+    $(document).on('click', ':not(.popover)', function() {
+        $('.popover').popover('hide')
+    })
+
+</script>
+
+
+
+
+

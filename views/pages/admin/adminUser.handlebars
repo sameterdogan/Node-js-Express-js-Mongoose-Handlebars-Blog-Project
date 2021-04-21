@@ -1,0 +1,114 @@
+<div id="layoutSidenav_content" class="p-5">
+    <div>
+        <div id="message" class="my-3">
+
+        </div>
+        <table id="usersTable" class="table">
+            <thead>
+            <tr>
+                <th scope="col">İsim</th>
+                <th scope="col">Email</th>
+                <th scope="col">Toplam yazı</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Engel</th>
+                <th scope="col">işlemler</th>
+            </tr>
+            </thead>
+            <tbody id="usersTableTbody">
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    function blockControl(block) {
+        return block == true ? 'fas fa-lock' : 'fas fa-lock-open'
+    }
+
+    function showMessage(message, color) {
+        $('#message').html(`
+         <div class='alert alert-${color} alert-dismissible fade show' role='alert'>
+        ${message}
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+        </button>
+    </div>
+        `)
+    }
+
+    function showUsers(users) {
+        users.forEach(user => {
+            $('#usersTableTbody').append(`
+               <tr>
+                  <td> <a href='/users/${user.slugName}/details' target='_blank' >${user.name}</a> </td>
+                  <td>${user.email}</td>
+                  <td>${user.blogs.length}</td>
+                  <td>${user.role}</td>
+                  <td>${user.block}</td>
+                  <td>
+                     <button title='Engelle' data-userId='${user._id}'  class='btn btn-light btn-sm ${blockControl(user.block)} blockOrUndoBlockButton' ></button>
+                     <button title='Sil' data-userId='${user._id}'  class='btn btn-light btn-sm deleteUserButton far fa-trash-alt' >   </button>
+                  </td>
+              </tr>
+
+            `)
+        })
+    }
+
+    function allUsers() {
+
+        $.get({
+            url: '/api/users/allUsers',
+            success: function(res) {
+                console.log(res)
+                showUsers(res.data.users)
+                $('#usersTable').dataTable()
+
+            },
+            error: function(err) {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+
+
+    }
+    allUsers()
+
+    $(document).on('click', '.blockOrUndoBlockButton', function(e) {
+
+        const userId = $(e.target).attr('data-userId')
+        $.get({
+            url: `/api/admin/${userId}/blockOrUndoBlock`,
+            success: function(res) {
+                console.log(res)
+                e.target.parentElement.previousElementSibling.innerHTML = res.data.user.block
+                e.target.className = `btn btn-light btn-sm ${res.data.icon} blockOrUndoBlockButton`
+                showMessage(res.message, 'success')
+
+            }, err: function(err) {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    })
+
+    $(document).on('click', '.deleteUserButton', function(e) {
+        const userId = $(e.target).attr('data-userId')
+        $.ajax({
+            type: 'delete',
+            url: `/api/users/${userId}`,
+            success: function(res) {
+                showMessage(res.message, 'success')
+                e.target.parentElement.parentElement.remove()
+            },
+            error: function(err) {
+                console.log(err)
+                showMessage(err.responseJSON.error, 'danger')
+            },
+        })
+    })
+
+</script>

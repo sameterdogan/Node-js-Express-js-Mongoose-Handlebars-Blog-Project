@@ -1,0 +1,220 @@
+<div class="container" style="max-width: 1100px !important;">
+    {{> _flash}}
+    {{> _validation}}
+    <div id="message">
+
+    </div>
+
+
+    <form id="addBlogForm" class="my-5">
+        <div class="form-group">
+
+            <input type="text" class="form-control " name="blogTitle" id="title" placeholder="Başlık" required
+                   minlength="5">
+            <small class="form-text text-muted">Başlık alanı en az 5 karakterden oluşmalıdır.</small>
+        </div>
+        <div class="form-group">
+
+            <input type="text" class="form-control" name="blogSummary" id="summary" placeholder="Özet" required
+                   minlength="20">
+            <small class="form-text text-muted">Özet alanı en az 20 karakterden oluşmalıdır.</small>
+        </div>
+        <div class="form-group">
+            <img id="image" src="/assets/image/defaultBlog.png" class="yükseklik img-fluid img-responsive " alt="">
+            <input type="file" class="form-control-file shadow-none my-2" name="blogImage" id="blogImage" required
+                   accept="image/jpeg,image/jpg,image/png,image/gif" aria-describedby="inputGroupFileAddon04">
+        </div>
+
+        <div class="form-group">
+
+            <textarea name="blogContent" class="from-control" style="visibility: hidden" id="editor" cols="60"
+                      rows="30"></textarea>
+            <small class="form-text text-muted">İçerik alanı en az 100 karakterden oluşmalıdır.</small>
+        </div>
+        <div class="form-group">
+
+            <select class="form-control" name="category" id="category">
+
+            </select>
+        </div>
+        <button type="submit" id="addBlog" class="btn btn-primary ">Yazı ekle</button>
+
+    </form>
+
+</div>
+
+
+<script src="/assets/vendor/ckeditor5/build/ckeditor.js"></script>
+
+
+<script>
+
+    let editor
+    ClassicEditor
+        .create(document.querySelector('#editor'), config = {
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'indent',
+                    'outdent',
+                    'imageUpload',
+                    'code',
+                    'codeBlock',
+                    'blockQuote',
+                    'insertTable',
+                ],
+            },
+            language: 'tr',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side',
+                ],
+            },
+            ckfinder: {
+                uploadUrl: '/api/blogs/blogContentImageUpload',
+            },
+        })
+        .then(newEditor => {
+            editor = newEditor
+        })
+        .catch(error => {
+            console.error(error)
+        })
+
+    function errorHandling(err) {
+        console.log(err.status)
+        switch (err.status) {
+            case 400:
+                showMessage(err.responseJSON.error, 'danger')
+                break
+            case 401:
+                window.location = '/auth/login'
+                break
+            case 403:
+                window.location = '/403'
+            case 404:
+                window.location = '*'
+                break
+            case 500:
+                window.location = '/500'
+        }
+    }
+
+    function showMessage(message, color) {
+
+        $('#message').html('')
+        $('#message').html(
+            `
+                          <div class='alert alert-${color} alert-dismissible fade show my-3' role='alert'>
+                                ${message}
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                           </div>
+                        `)
+
+        $('html, body').animate({ scrollTop: 0 }, 'slow')
+    }
+
+
+    function addBlogValidation(formData) {
+        console.log(formData.get('blogImage').size)
+        let errors = ''
+        if (formData.get('blogTitle').length < 5)
+            errors += 'Başlık alanı  en az 5 karakterden oluşmalıdır.<br>'
+        if (formData.get('blogSummary').length < 10)
+            errors += 'Özet alanı en az 20 karakterden oluşmalıdır. <br>'
+        if (formData.get('blogContent').length < 100)
+            errors += 'İçerik alanı en az 100 karakterden oluşmalıdır. <br>'
+        $('#message').html('')
+        if (formData.get('blogImage').size < 1)
+            errors += 'Ön gösterim için resim yüklemelisin. <br>'
+        $('#message').html('')
+
+        return errors
+
+    }
+
+    function addBlog() {
+        $(document).on('submit', '#addBlogForm', function(event) {
+            event.preventDefault()
+            let formData = new FormData(this)
+            let errors = addBlogValidation(formData)
+            if (errors.length == 0) {
+                $.ajax({
+                    url: '/api/blogs',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(res) {
+                        showMessage(res.message, 'success')
+                        /* setTimeout(()=>{
+                             window.location="/"
+                         },3000);*/
+                    },
+                    error: (err) => {
+                        errorHandling(err)
+                    },
+                })
+            } else {
+                showMessage(errors, 'danger')
+            }
+
+        })
+    }
+
+    function getCategories() {
+        $.ajax({
+            url: '/api/categories',
+            type: 'GET',
+            success: function(res) {
+                $(res.data.categories).each((index, category) => {
+                    $('#category').append(`
+                   <option value='${category._id}'>${category.category}</option>
+                `)
+                })
+            },
+            error: function(err) {
+                window.location = '/500'
+            },
+        })
+    }
+
+
+    getCategories()
+    addBlog()
+
+
+    //blog image extension kontrolü
+    $('input[type=\'file\']').change(function() {
+        let extension = this.value.substr(this.value.lastIndexOf('.') + 1)
+        let filenameselected = this.value.substr(this.value.lastIndexOf('\\') + 1)
+        if (!(extension == 'jpeg' || extension == 'jpg' || extension == 'png' || extension == 'PNG' || extension == 'jfif' || extension == 'gif')) {
+            showMessage('dosya uzatınsı jpeg,png,png veya gif olmalıdır.', 'danger')
+        } else {
+            var blogImage = document.getElementById('blogImage')
+            var fReader = new FileReader()
+            fReader.readAsDataURL(blogImage.files[0])
+            fReader.onloadend = function(event) {
+                var img = $('#image')
+                $(img).attr('src', event.target.result)
+
+            }
+        }
+    })
+
+
+</script>
+
+
