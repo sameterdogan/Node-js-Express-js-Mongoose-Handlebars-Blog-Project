@@ -2,22 +2,27 @@
 Blog site I've prepared using Node js, Express js, Mongoose and Handlebars.
  
    
-   used technologies
+   Used Technologies
    * [Node js](https://nodejs.org/en/docs/)
    * [Express js](https://expressjs.com/)
    * [Handlebars js](https://handlebarsjs.com/)
    * [Passport js](http://www.passportjs.org/)
    
 
-    You can run the project by typing the following codes in order.
-    
+  ### You can run the project by typing the following codes in order.  
     * "npm install"
     * "npm run start"
+
+
+   
+###  For testing
+    * Change the NODEENV variable in the config file to "test"
+    * "npm run test"
+
     
  
 
     
-
 
 
 
