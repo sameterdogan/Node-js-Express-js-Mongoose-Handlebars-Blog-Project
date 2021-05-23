@@ -26,7 +26,7 @@ Blog site I've prepared using Node js, Express js, Mongoose and Handlebars.
 
 
 
-Gifler
+Gifs
 
 ![homesearch](https://user-images.githubusercontent.com/67067879/107852831-dfa56000-6e23-11eb-8dea-357740737b79.gif)                                                                
 
